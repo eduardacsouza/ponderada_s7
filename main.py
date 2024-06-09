@@ -38,7 +38,8 @@ def update_user(user_id):
 
 @app.route('/create_historia', methods=['POST'])
 def create_historia():
-    historia_service.create_historia_from_gpt()
+    prompt_json = request.get_json()
+    historia_service.create_historia_from_gpt(prompt_json)
     return jsonify({"message": "Historia created successfully"}), 201
 
 @app.route('/gethistoria/<int:historia_id>', methods=['GET'])

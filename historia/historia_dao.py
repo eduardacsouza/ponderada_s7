@@ -3,10 +3,10 @@ from historia.historia_model import HistoriaModel
 
 def create_connection():
     return mysql.connector.connect(
-        host='ponderada-s7-m6.cnxoiuoiesei.us-east-1.rds.amazonaws.com',
+        host='database-2.cpmvylgu79yg.us-east-1.rds.amazonaws.com',
         user='admin',
-        password='EMELYinteli123',
-        database='semana7'
+        password='eduardaeemelyamor',
+        database='eduardao'
     )
 
 def create_table(conn):
@@ -14,7 +14,7 @@ def create_table(conn):
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS historia (
             id INT AUTO_INCREMENT PRIMARY KEY,
-            content TEXT
+            prompt TEXT
         )
     ''')
     conn.commit()
@@ -33,7 +33,7 @@ class HistoriaDAO:
         
     def create_historia(self, historia: HistoriaModel):
         cursor = self.conn.cursor()
-        cursor.execute('INSERT INTO historia (content) VALUES (%s)', (historia.content,))
+        cursor.execute('INSERT INTO historia (content) VALUES (%s)', (historia.prompt,))
         self.conn.commit()
         historia.id = cursor.lastrowid
         

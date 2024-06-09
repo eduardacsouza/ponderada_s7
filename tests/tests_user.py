@@ -1,5 +1,5 @@
 import unittest
-from unittest.mock import MagicMock
+from unittest.mock import MagicMock, patch
 from user.user_services import UserService
 
 class TestUserService(unittest.TestCase):
@@ -9,11 +9,16 @@ class TestUserService(unittest.TestCase):
         self.user_service = UserService()
         self.user_service.user_dao = self.user_dao_mock
 
-    def test_create_user(self):
+    @patch('user.user_services.UserModel')
+    def test_create_user(self, UserModelMock):
         # Testa o método create_user
-        user_data = {"id": 1, "name": "Alice", "email": "alice@example.com"}
+        user_data = {"id": 1, "name": "Alice", "email": "alice@example.com", "password": "12345"}
+        user_model_instance = UserModelMock.return_value
+
         self.user_service.create_user(user_data)
-        self.user_dao_mock.create_user.assert_called_once_with(user_data)
+
+        UserModelMock.assert_called_once_with(**user_data)
+        self.user_dao_mock.create_user.assert_called_once_with(user_model_instance)
 
     def test_get_user_by_id(self):
         # Testa o método get_user_by_id
@@ -32,11 +37,14 @@ class TestUserService(unittest.TestCase):
         self.user_service.delete_user(user_id)
         self.user_dao_mock.delete_user.assert_called_once_with(user_id)
 
-    def test_update_user(self):
+    @patch('user.user_services.UserModel')
+    def test_update_user(self, UserModelMock):
         # Testa o método update_user
-        user_data = {"id": 1, "name": "Alice", "email": "alice@example.com"}
+        user_data = {"id": 1, "name": "Alice", "email": "alice@example.com", "password": "12345"}
         self.user_service.update_user(user_data)
-        self.user_dao_mock.update_user.assert_called_once_with(user_data)
+        user_model_instance = UserModelMock.return_value
+        UserModelMock.assert_called_once_with(**user_data)
+        self.user_dao_mock.update_user.assert_called_once_with(user_model_instance)
 
 if __name__ == "__main__":
     unittest.main()
