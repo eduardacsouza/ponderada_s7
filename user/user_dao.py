@@ -3,10 +3,10 @@ from user.user_model import UserModel
 
 def create_connection():
     return mysql.connector.connect(
-        host='ponderada-s7-m6.cnxoiuoiesei.us-east-1.rds.amazonaws.com',
+        host='database-2.cpmvylgu79yg.us-east-1.rds.amazonaws.com',
         user='admin',
-        password='EMELYinteli123',
-        database='semana7'
+        password='eduardaeemelyamor',
+        database='eduardao'
     )
 
 def create_table(conn):

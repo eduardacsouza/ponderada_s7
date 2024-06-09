@@ -1,11 +1,10 @@
-        
 class HistoriaModel:
-    def __init__(self, content, id):
-        self.content = content
+    def __init__(self, id, prompt):
         self.id = id
+        self.prompt = prompt
 
     def to_json(self):
         return {
             'id': self.id,
-            'content': self.content
+            'prompt': self.prompt
         }

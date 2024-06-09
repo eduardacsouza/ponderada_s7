@@ -1,17 +1,54 @@
-# gpt.py
+import google.generativeai as genai
 
-from openai import OpenAI
+def configure_gemini(api_key):
+    """
+    Configura a conexão com a API do Gemini.
 
-chave = "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"
-client = OpenAI(api_key=chave)
+    Args:
+        api_key (str): Sua chave de API do Gemini.
 
-def historia_gpt():
-    completion = client.chat.completions.create(
-        model="gpt-3.5-turbo",
-        messages=[
-            {"role": "system", "content": "Você é uma garota dos anos 80 que está se apaixonando pela primeira vez por um poeta. Escreva no máximo 500 caracteres"},
-            {"role": "user", "content": "Recite os poemas que o seu amado fez para você. Escreva no máximo 500 caracteres."}
-        ]
-    )
-    historia = completion.choices[0].message.content
-    return historia
+    Returns:
+        gemini.GeminiClient: O cliente do Gemini configurado.
+    """
+    genai.configure(api_key=api_key)
+    model = genai.GenerativeModel('gemini-pro')
+    return model
+
+def generate_story(model, prompt):
+    """
+    Gera uma história usando o Gemini.
+
+    Args:
+        client (gemini.GeminiClient): O cliente do Gemini configurado.
+        prompt (str): O prompt inicial para a história.
+        parameters (dict): Parâmetros opcionais para controlar a geração da história.
+
+    Returns:
+        str: O texto da história gerada.
+    """
+
+    response = model.generate_content(prompt)
+    story = response.text
+    return story
+
+def historia_gemini(prompt):
+    """
+    Gera uma história usando o Gemini.
+
+    Args:
+        prompt (str): O prompt inicial para a história.
+        parameters (dict, opcional): Parâmetros opcionais para controlar a geração da história.
+
+    Returns:
+        str: O texto da história gerada.
+    """
+    # Substitua "sua_chave_de_api_aqui" pela sua chave de API do Gemini
+    api_key = "AIzaSyDXij5Fb_WoIseBzXD_7j4_T6qOyoWM8cg"
+    model = configure_gemini(api_key)
+    historia_gpt = generate_story(model, prompt)
+    return historia_gpt
+
+# # Exemplo de uso
+# prompt = "Era uma vez uma princesa que..."
+# story = historia_gemini(prompt)
+# print(story)
