@@ -60,6 +60,6 @@ class HistoriaDAO:
             UPDATE historia
             SET content = %s
             WHERE id = %s
-        ''', (historia.content, historia.id))
+        ''', (historia.prompt, historia.id))
         self.conn.commit()
         
