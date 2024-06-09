@@ -6,9 +6,12 @@
 ### 1. CRUD de Histórias
 &emsp; A aplicação oferece operações CRUD (Create, Read, Update, Delete) para gerenciar histórias. Cada história é representada por um modelo que inclui campos como ID e Conteúdo. As operações possibilitam:
 
-#### Criação: Adicionar novas histórias.
+**Criação:** Adicionar novas histórias
+
 **Recuperação:** Buscar e visualizar histórias existentes.
+
 **Atualização:** Modificar o conteúdo de histórias existentes.
+
 **Exclusão:** Remover histórias do sistema.
 
 ### 2. Integração com a API do ChatGPT
